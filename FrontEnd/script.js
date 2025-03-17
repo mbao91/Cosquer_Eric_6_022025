@@ -2,6 +2,7 @@
 //  The fetch() function is a web API that allows you to make requests to a server.
 // 1. Créer une fonction asynchrone qui récupère les données de l'API Works 
 async function fetchData() {
+    checkLoginStatus();
     const response = await fetch("http://localhost:5678/api/works")
     .then((res) => res.json())
     .then((works) => {
@@ -20,6 +21,25 @@ async function fetchData() {
         }
         categories(categoryData);
     })
+
+    function checkLoginStatus() {
+    const token = localStorage.getItem("token");
+    const loginButton = document.getElementById("logout");
+    
+    if (token) {
+        loginButton.textContent = "logout";
+        loginButton.addEventListener("click", handleLogout);
+    } else {
+        loginButton.textContent = "login";
+        loginButton.addEventListener("click", () => {
+            window.location.href = "./login.html";
+        });
+    }
+}
+function handleLogout() {
+    localStorage.removeItem("token");
+    window.location.href = "./index.html";
+}
 
     function galery(works) {
         const gallery = document.querySelector(".gallery");
@@ -91,6 +111,5 @@ async function fetchData() {
             }
         });
     }
-    
 }
 fetchData();
