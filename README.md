@@ -1,5 +1,10 @@
 # Portfolio-architecte-sophie-bluel
 
+Checklist : 
+
+- [ ] verify CSS for login page and index page
+- [ ] Create modals 
+
 Code du projet 6 d'intégrateur web.
 
 ## Architecture
