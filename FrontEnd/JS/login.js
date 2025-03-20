@@ -1,4 +1,6 @@
 const login = document.getElementById("loginForm"); // On récupère le formulaire
+const logout = document.getElementById("loginBtn"); // On récupère le bouton de déconnexion
+
 
 login.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -24,29 +26,14 @@ login.addEventListener("submit", async (event) => {
     }
 });
 
-/*deconnexion.addEventListener("submit", async (event) => {
+logout.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const formData = new FormData(deconnexion);
-    const deconnexionData = Object.fromEntries(formData);
-    console.log(deconnexionData);
 
-    const response = await fetch("http://localhost:5678/api/users/logout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(deconnexionData),
-    });
-
-    const data = await response.json();
-    console.log(data);
-    if (data.error) {
-        alert(data.error);
-    } else {
+    if (logout) {
         localStorage.removeItem("token");
         window.location.href = "index.html";
     }
-});*/
+});
 
 
 //Faire la deconnexion

@@ -25,10 +25,12 @@ async function fetchData() {
     function checkLoginStatus() {
     const token = localStorage.getItem("token");
     const loginButton = document.getElementById("logout");
+    const edit = document.getElementById("header-edit");
     
     if (token) {
         loginButton.textContent = "logout";
         loginButton.addEventListener("click", handleLogout);
+        
     } else {
         loginButton.textContent = "login";
         loginButton.addEventListener("click", () => {
