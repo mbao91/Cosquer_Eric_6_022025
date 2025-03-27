@@ -1,6 +1,6 @@
 const login = document.getElementById("loginForm"); // On récupère le formulaire
 const logout = document.getElementById("loginBtn"); // On récupère le bouton de déconnexion
-
+const filterBtn = document.getElementsByClassName("filterBtn");
 
 login.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -19,20 +19,36 @@ login.addEventListener("submit", async (event) => {
     const data = await response.json();
     console.log(data);
     if (data.error) {
-        alert(data.error);
-    } else {
+        alert("Email ou mot de passe incorrect");
+    } else if (loginData.email === "sophie.bluel@test.tld"){
         localStorage.setItem("token", data.token);
+        localStorage.setItem("isAdmin", true);
         window.location.href = "index.html";
+        document.getElementsByClassName("filterBtn").style.display = "none";
     }
 });
 
+checkAdminStatus() {
+    const isAdmin = false;
+    const headerEdit = document.getElementById("header-edit");
+    const filterButtons = document.getElementsByClassName("filterBtn");
+    
+    if (isAdmin) {
+        // Afficher les éléments d'administration
+        headerEdit.style.display = "flex";
+        Array.from(filterButtons).forEach(btn => btn.style.display = "block");
+    } else {
+        // Cacher les éléments d'administration
+        headerEdit.style.display = "none";
+        Array.from(filterButtons).forEach(btn => btn.style.display = "none");
+    }
+}
+
 logout.addEventListener("submit", async (event) => {
     event.preventDefault();
-
-    if (logout) {
-        localStorage.removeItem("token");
-        window.location.href = "index.html";
-    }
+    localStorage.removeItem("token");
+    localStorage.removeItem("isAdmin"); 
+    window.location.href = "index.html";
 });
 
 

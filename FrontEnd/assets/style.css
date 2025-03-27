@@ -46,6 +46,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 0,
+  'GRAD' 0,
+  'opsz' 24
+}
 /** end reset css**/
 body {
 	max-width: 1140px;
@@ -66,7 +73,7 @@ header {
 	top: 0;
 	left: 0;
 	z-index: 1000;
-	display: none;
+	/*display: none;*/
 	display: flex;
 	width: 100vw;
 	padding: 20px 0;
@@ -79,7 +86,9 @@ header {
 .edit {
 	display: flex;
 	flex-direction: row;
-	/*gap: 12px;*/
+	gap: 12px;
+	justify-content: center;
+	color: white;
 }
 #header-top {
 	display: flex;
@@ -154,7 +163,11 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
-
+.project-title {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
 #login {
 	display: flex;
 	align-items: center;
@@ -191,9 +204,41 @@ li:hover {
 	width: 100%;
 
 }
+.modal {
+	background-color: rgba(0,0,0,0.35);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+	visibility: visible;
+	display: flex;
+}
+.modal-content {
+	background-color: white;
+	max-width: 55vw;
+	margin: auto;
+	/*padding: auto;*/
+	flex: 1;
+	position: relative;
+	
+}
+.modal-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 5px;
+	cursor: pointer;
+}
+.modal-header {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+}
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;

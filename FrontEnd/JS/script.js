@@ -3,6 +3,7 @@
 // 1. Créer une fonction asynchrone qui récupère les données de l'API Works 
 async function fetchData() {
     checkLoginStatus();
+    checkAdminStatus();
     const response = await fetch("http://localhost:5678/api/works")
     .then((res) => res.json())
     .then((works) => {
@@ -22,26 +23,32 @@ async function fetchData() {
         categories(categoryData);
     })
 
+
+
     function checkLoginStatus() {
     const token = localStorage.getItem("token");
     const loginButton = document.getElementById("logout");
     const edit = document.getElementById("header-edit");
+    //const filterCtn = document.getElementsByClassName("filter-container");
     
-    if (token) {
-        loginButton.textContent = "logout";
-        loginButton.addEventListener("click", handleLogout);
-        
-    } else {
-        loginButton.textContent = "login";
-        loginButton.addEventListener("click", () => {
-            window.location.href = "./login.html";
-        });
+        if (token) {
+            loginButton.textContent = "logout";
+            loginButton.addEventListener("click", handleLogout);
+            edit.style.display = "block";
+            //filterCtn.hidden = true;
+            
+        } else {
+            loginButton.textContent = "login";
+            loginButton.addEventListener("click", () => {
+                window.location.href = "./login.html";
+            });
+            edit.style.display = "none";
+        }
     }
-}
-function handleLogout() {
+    function handleLogout() {
     localStorage.removeItem("token");
     window.location.href = "./index.html";
-}
+    }
 
     function galery(works) {
         const gallery = document.querySelector(".gallery");
@@ -58,10 +65,10 @@ function handleLogout() {
             img.src = work.imageUrl;
             img.alt = work.title;
             figcaption.textContent = work.title;
-    
+            
+            gallery.appendChild(figure);
             figure.appendChild(img);
             figure.appendChild(figcaption);
-            gallery.appendChild(figure);
         });
     }
     
@@ -69,9 +76,20 @@ function handleLogout() {
         const portfolioSection = document.querySelector("#portfolio");
         const portfolioTitle = portfolioSection.querySelector("h2");
     
+        /*const modify = document.createElement("div");
+        modify.classList.add("modify");
+        const span = document.createElement("span");
+        span.classList.add("\"material-symbols-outlined\"");
+        span.textContent = "edit_quare";
+        const modal = document.createElement("a");
+        modal.href = "#";
+        modal.textContent = "Modifier";
+        modify.appendChild(span);
+        modify.role = "button";*/
+
         const filterContainer = document.createElement("div");
         filterContainer.classList.add("filter-container");
-    
+
         // Création du bouton "Tous"
         const allFilter = document.createElement("button");
         allFilter.textContent = "Tous";

@@ -7,14 +7,18 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=edit_square" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close" />
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
 <header>
 	<div id="header-edit">
-		<div class="edit"><i class="fa-regular fa-pen-to-square"></i>
-			<p>Mode édition</p>
+		<div class="edit">
+
+			<i class="fa-regular fa-pen-to-square"></i><p>Mode édition</p>
+
 		</div>
 	</div>
 	<div id="header-top">
@@ -30,9 +34,9 @@
 	</div>
 </header>
 <main>
-	<section id="introduction">
+	<section id="introduction"><!--section pour la présentation de l'architecte d'intérieur-->
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
+			<img src="./assets/images/sophie-bluel.png" alt="Nom de société">
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -41,13 +45,37 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
-	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<div class="gallery">
-			<!--figure - img - figcaption-->
+	<section id="portfolio"><!--section pour les projets de l'architecte d'intérieur-->
+		<div class="project-title">
+			<h2>Mes Projets</h2>
+			
+			<div class="modify"><!--bouton d'ouverture de la modale-->
+				<span class="material-symbols-outlined">
+					edit_square
+					</span>
+				<a href="#" role="button" data-target="#modal" data-toggle="modalGallery">Modifier</a>
+			</div>
 		</div>
+
+			<div class="gallery"></div><!--galerie de photos des projets-->
+
+		<section class="modal" id="modalGallery">
+			<div class="modal-content">
+				<div class="modal-close"><span class="material-symbols-outlined">
+					close
+					</span></div>
+				<div class="modal-header">
+					<h3>Galerie photo</h3>
+				</div>
+				<div class="modal-body">
+					
+				</div>
+			</div>
+		</section><!--section pour la modale de la galerie-->
+
+		<section id="modalAddingImg"></section><!--section pour la modale d'ajout d'image-->
 	</section>
-	<section id="contact">
+	<section id="contact"><!--section pour contacter l'architecte d'intérieur-->
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>
 		<form action="#" method="post">
@@ -72,5 +100,6 @@
 </footer>
 
 <script src="./JS/script.js" defer></script>//defer attend le chargement de la page pour executer le script
+<script type="module" src="./JS/modale.js"></script>
 </body>
 </html>
