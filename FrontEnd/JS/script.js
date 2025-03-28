@@ -1,52 +1,84 @@
 //Récupération des données de l'API Works
 //  The fetch() function is a web API that allows you to make requests to a server.
 // 1. Créer une fonction asynchrone qui récupère les données de l'API Works 
+//import {function} from script.js  permet d'importer des fonctions d'un autre fichier
+import { checkAdminStatus } from "./login.js";
+
 async function fetchData() {
-    checkLoginStatus();
-    checkAdminStatus();
-    const response = await fetch("http://localhost:5678/api/works")
-    .then((res) => res.json())
-    .then((works) => {
-        console.log(works)
-        for (let i = 0; i < works.length; i++) {
-            console.log(works[i].title)
+
+    try {
+        // Première requête pour les works
+        const worksResponse = await fetch("http://localhost:5678/api/works", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+        
+        if (!worksResponse.ok) {
+            throw new Error(`HTTP error! status: ${worksResponse.status}`);
         }
+        
+        const works = await worksResponse.json();
         galery(works);
-    })
-    const response2 = await fetch("http://localhost:5678/api/categories")
-    .then((res) => res.json())
-    .then((categoryData) => {
-        console.log(categoryData)
-        for (let i = 0; i < categoryData.length; i++) {
-            console.log(categoryData[i].name)
+
+        // Deuxième requête pour les catégories
+        const categoriesResponse = await fetch("http://localhost:5678/api/categories", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+        
+        if (!categoriesResponse.ok) {
+            throw new Error(`HTTP error! status: ${categoriesResponse.status}`);
         }
+        
+        const categoryData = await categoriesResponse.json();
         categories(categoryData);
-    })
+
+        checkAdminStatus();
+        checkLoginStatus();
+
+    } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+    }
+}
 
 
 
     function checkLoginStatus() {
-    const token = localStorage.getItem("token");
-    const loginButton = document.getElementById("logout");
-    const edit = document.getElementById("header-edit");
-    //const filterCtn = document.getElementsByClassName("filter-container");
+        const token = localStorage.getItem("token");
+        const isAdmin = localStorage.getItem("isAdmin") === "true";
+        const loginLink = document.getElementById("login-link");
+        const edit = document.getElementById("header-edit");
+        const filterContainer = document.querySelector(".filter-container");
     
-        if (token) {
-            loginButton.textContent = "logout";
-            loginButton.addEventListener("click", handleLogout);
-            edit.style.display = "block";
-            //filterCtn.hidden = true;
+        if (token && isAdmin) {
+            loginLink.textContent = "logout";
+            loginLink.onclick = function (e) {
+                e.preventDefault();
+                handleLogout();
+            };
+            // Afficher le bouton de modification
+            edit.style.display = "flex";
+            // Masquer les filtres si admin
+            if (filterContainer) {
+                filterContainer.style.display = "none";
+            }
             
         } else {
-            loginButton.textContent = "login";
-            loginButton.addEventListener("click", () => {
-                window.location.href = "./login.html";
-            });
+            loginLink.textContent = "login";
             edit.style.display = "none";
+            // Afficher les filtres si non admin
+            if (filterContainer) {
+                filterContainer.style.display = "flex";
+            }
         }
     }
     function handleLogout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("isAdmin");
     window.location.href = "./index.html";
     }
 
@@ -72,41 +104,40 @@ async function fetchData() {
         });
     }
     
-    function categories(categoryData, works) {
+    function categories(categoryData) {
         const portfolioSection = document.querySelector("#portfolio");
         const portfolioTitle = portfolioSection.querySelector("h2");
     
-        /*const modify = document.createElement("div");
-        modify.classList.add("modify");
-        const span = document.createElement("span");
-        span.classList.add("\"material-symbols-outlined\"");
-        span.textContent = "edit_quare";
-        const modal = document.createElement("a");
-        modal.href = "#";
-        modal.textContent = "Modifier";
-        modify.appendChild(span);
-        modify.role = "button";*/
-
+        // Créer le conteneur de filtres
         const filterContainer = document.createElement("div");
         filterContainer.classList.add("filter-container");
-
-        // Création du bouton "Tous"
+        
+        // Bouton "Tous"
         const allFilter = document.createElement("button");
         allFilter.textContent = "Tous";
+        allFilter.classList.add("filter-btn");
+        // Ajouter la classe active par défaut
         allFilter.classList.add("filter-btn", "active");
+        // Ajouter l'écouteur d'événement pour "Tous"
         allFilter.addEventListener("click", () => filterWorks("Tous"));
         filterContainer.appendChild(allFilter);
     
-        // Création des autres filtres
+        // Autres boutons de filtre
         categoryData.forEach(category => {
-            const filter = document.createElement("button");
-            filter.textContent = category.name;
-            filter.classList.add("filter-btn");
-            filter.addEventListener("click", () => filterWorks(category.name));
-            filterContainer.appendChild(filter);
+            const filterBtn = document.createElement("button");
+            filterBtn.textContent = category.name;
+            filterBtn.classList.add("filter-btn");
+            // Ajouter l'écouteur d'événement pour chaque catégorie
+            filterBtn.addEventListener("click", () => filterWorks(category.name));
+            filterContainer.appendChild(filterBtn);
         });
     
+        // Insérer les filtres après le titre
         portfolioTitle.insertAdjacentElement('afterend', filterContainer);
+    
+        // Gérer la visibilité en fonction du statut admin
+        const isAdmin = localStorage.getItem("isAdmin") === "true";
+        filterContainer.style.display = isAdmin ? "none" : "flex";
     }
     
     function filterWorks(category) {
@@ -131,5 +162,6 @@ async function fetchData() {
             }
         });
     }
-}
+    
+// Appel initial de la fonction fetchData
 fetchData();

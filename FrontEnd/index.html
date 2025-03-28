@@ -7,8 +7,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=edit_square" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=close" />
+	<script src="https://kit.fontawesome.com/6aaa0cf9a5.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
@@ -27,7 +26,7 @@
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li id="logout">login</li>
+				<li><a href="./login.html" id="login-link">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -49,11 +48,9 @@
 		<div class="project-title">
 			<h2>Mes Projets</h2>
 			
-			<div class="modify"><!--bouton d'ouverture de la modale-->
-				<span class="material-symbols-outlined">
-					edit_square
-					</span>
-				<a href="#" role="button" data-target="#modal" data-toggle="modalGallery">Modifier</a>
+			<div id="modify" class="modify"><!--bouton d'ouverture de la modale-->
+				<i class="fa-regular fa-pen-to-square"></i>
+				<a href="#modalGallery" role="button" data-target="#modal" data-toggle="modalGallery">Modifier</a>
 			</div>
 		</div>
 
@@ -61,14 +58,14 @@
 
 		<section class="modal" id="modalGallery">
 			<div class="modal-content">
-				<div class="modal-close"><span class="material-symbols-outlined">
-					close
-					</span></div>
+				<div id="modal-close" class="modal-close">
+					<i class="fa-regular fa-xmark"></i>
+				</div>
 				<div class="modal-header">
 					<h3>Galerie photo</h3>
 				</div>
 				<div class="modal-body">
-					
+
 				</div>
 			</div>
 		</section><!--section pour la modale de la galerie-->
@@ -99,7 +96,8 @@
 	</nav>
 </footer>
 
-<script src="./JS/script.js" defer></script>//defer attend le chargement de la page pour executer le script
+<script type="module" src="./JS/script.js" defer></script>//defer attend le chargement de la page pour executer le script
 <script type="module" src="./JS/modale.js"></script>
+<script type="module" src="./JS/login.js"></script>
 </body>
 </html>

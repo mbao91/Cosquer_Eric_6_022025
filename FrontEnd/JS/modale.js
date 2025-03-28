@@ -1,5 +1,7 @@
+import { checkAdminStatus } from "./login.js";
+
 async function fetchData() {
-    checkLoginStatus();
+    checkAdminStatus();
     const response = await fetch("http://localhost:5678/api/works")
     .then((res) => res.json())
     .then((works) => {
@@ -17,12 +19,19 @@ const token = localStorage.getItem("token");
 
 if (token) {
     // Gérer le clic sur modifier pour chaque image
-    const modify = document.querySelectorAll(".modify");
-    modify.addevetListener("click", (works) => {
-        const modal = document.getElementById("modal");
+    const modify = document.getElementById("modify");
+    modify.addEventListener("click", (works) => {
+        const modal = document.getElementById("modalGallery");
         modal.style.display = "block";
     }
-};
+)};
 }
 
-// Ajouter les propriétés CSS pour le modal
+function closeModal() {
+    const modal = document.getElementById("modalGallery");
+    modal.style.display = "none";
+}
+
+let modalClose = document.getElementById("modal-close");
+modalClose.addEventListener("click", closeModal);  
+

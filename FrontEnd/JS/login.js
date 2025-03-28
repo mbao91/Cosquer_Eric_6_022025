@@ -1,55 +1,64 @@
-const login = document.getElementById("loginForm"); // On récupère le formulaire
-const logout = document.getElementById("loginBtn"); // On récupère le bouton de déconnexion
 const filterBtn = document.getElementsByClassName("filterBtn");
 
-login.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const formData = new FormData(login);
-    const loginData = Object.fromEntries(formData);
-    console.log(loginData);
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+    // Vérifier le statut de connexion au chargement
+    if (loginForm) {
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-    const response = await fetch("http://localhost:5678/api/users/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
-    });
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            console.log("Tentative de connexion avec:", email); // Pour déboguer
 
-    const data = await response.json();
-    console.log(data);
-    if (data.error) {
-        alert("Email ou mot de passe incorrect");
-    } else if (loginData.email === "sophie.bluel@test.tld"){
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("isAdmin", true);
-        window.location.href = "index.html";
-        document.getElementsByClassName("filterBtn").style.display = "none";
+            try {
+                const response = await fetch("http://localhost:5678/api/users/login", {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                console.log("Statut de réponse:", response.status); // Pour déboguer
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Réponse d'erreur:", errorText);
+                    throw new Error("Email ou mot de passe incorrect");
+                }
+                
+                const data = await response.json();
+                console.log("Données reçues:", data); // Pour déboguer
+
+                if (data.token) {
+                    localStorage.setItem("token", data.token);
+                    //localStorage.setItem("isAdmin", "true");
+                    window.location.href = "./index.html";
+                }
+            } catch (error) {
+                console.error("Erreur lors de la connexion:", error);
+                alert("Email ou mot de passe incorrect");
+            }
+        });
     }
 });
 
-checkAdminStatus() {
-    const isAdmin = false;
+export function checkAdminStatus() {
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
     const headerEdit = document.getElementById("header-edit");
     const filterButtons = document.getElementsByClassName("filterBtn");
     
     if (isAdmin) {
-        // Afficher les éléments d'administration
         headerEdit.style.display = "flex";
-        Array.from(filterButtons).forEach(btn => btn.style.display = "block");
-    } else {
-        // Cacher les éléments d'administration
-        headerEdit.style.display = "none";
         Array.from(filterButtons).forEach(btn => btn.style.display = "none");
+    } else {
+        headerEdit.style.display = "none";
+        Array.from(filterButtons).forEach(btn => btn.style.display = "block");
     }
 }
-
-logout.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    localStorage.removeItem("token");
-    localStorage.removeItem("isAdmin"); 
-    window.location.href = "index.html";
-});
-
-
-//Faire la deconnexion

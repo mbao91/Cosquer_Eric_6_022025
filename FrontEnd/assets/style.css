@@ -136,6 +136,15 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+nav a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: #B1663C;
+}
 #introduction {
 	display: flex;
 	align-items: center;
@@ -181,6 +190,10 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	margin: 2em 0;
+}
+/* Style pour cacher les filtres */
+.filter-container.hidden {
+    display: none;
 }
 .filter-btn {
 	font-family: 'Syne';
