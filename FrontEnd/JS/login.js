@@ -1,5 +1,6 @@
 const filterBtn = document.getElementsByClassName("filterBtn");
 
+
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
     // Vérifier le statut de connexion au chargement
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (data.token) {
                     localStorage.setItem("token", data.token);
-                    //localStorage.setItem("isAdmin", "true");
+                    localStorage.setItem("isAdmin", "true");
                     window.location.href = "./index.html";
                 }
             } catch (error) {
@@ -50,15 +51,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export function checkAdminStatus() {
-    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    const email = document.getElementById("email").value;
+    const isAdmin = localStorage.getItem("isAdmin") === "false";
     const headerEdit = document.getElementById("header-edit");
     const filterButtons = document.getElementsByClassName("filterBtn");
     
-    if (isAdmin) {
+    if (email === "sophie.buel@test.tld") {
+        isAdmin = "true";
+        localStorage.setItem("isAdmin", "true");
         headerEdit.style.display = "flex";
         Array.from(filterButtons).forEach(btn => btn.style.display = "none");
     } else {
+        isAdmin = false;
+        localStorage.setItem("isAdmin", "false");
         headerEdit.style.display = "none";
         Array.from(filterButtons).forEach(btn => btn.style.display = "block");
     }
+    checkAdminStatus();
 }

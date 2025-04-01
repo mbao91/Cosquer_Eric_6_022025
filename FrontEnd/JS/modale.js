@@ -11,7 +11,7 @@ async function fetchData() {
         }
         galery(works);
     })
-
+}
 const token = localStorage.getItem("token");
 
 //const modify = document.getElementById("modify");
@@ -24,8 +24,11 @@ if (token) {
         const modal = document.getElementById("modalGallery");
         modal.style.display = "block";
     }
-)};
-}
+)} else {
+    console.log("Token non trouvé");
+    const modal = document.getElementById("modalGallery");
+        modal.style.display = "none";
+};
 
 function closeModal() {
     const modal = document.getElementById("modalGallery");
@@ -35,3 +38,4 @@ function closeModal() {
 let modalClose = document.getElementById("modal-close");
 modalClose.addEventListener("click", closeModal);  
 
+fetchData();

@@ -5,6 +5,8 @@
 import { checkAdminStatus } from "./login.js";
 
 async function fetchData() {
+    // Vérifier le statut de connexion
+    checkLoginStatus();
 
     try {
         // Première requête pour les works
@@ -38,11 +40,11 @@ async function fetchData() {
         categories(categoryData);
 
         checkAdminStatus();
-        checkLoginStatus();
 
     } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
     }
+    
 }
 
 
