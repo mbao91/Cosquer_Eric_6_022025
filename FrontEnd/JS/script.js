@@ -43,8 +43,7 @@ async function fetchData() {
 
     } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
-    }
-    
+    }  
 }
 
 
@@ -55,6 +54,7 @@ async function fetchData() {
         const loginLink = document.getElementById("login-link");
         const edit = document.getElementById("header-edit");
         const filterContainer = document.querySelector(".filter-container");
+        const modify = document.getElementById("modify");
     
         if (token && isAdmin) {
             loginLink.textContent = "logout";
@@ -72,6 +72,7 @@ async function fetchData() {
         } else {
             loginLink.textContent = "login";
             edit.style.display = "none";
+            modify.style.display = "none";
             // Afficher les filtres si non admin
             if (filterContainer) {
                 filterContainer.style.display = "flex";

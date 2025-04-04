@@ -177,6 +177,9 @@ nav a:hover {
 	flex-wrap: wrap;
 	justify-content: center;
 }
+.modify {
+	margin-left: 10px;
+}
 #login {
 	display: flex;
 	align-items: center;
@@ -220,17 +223,19 @@ nav a:hover {
 .modal {
 	background-color: rgba(0,0,0,0.35);
 	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	top: 18%;
+	left: 22%;
+	/*right: 0;
+	bottom: 0;*/
 	z-index: 1000;
 	visibility: visible;
 	display: flex;
 }
 .modal-content {
+	border-radius: 20%;
 	background-color: white;
 	max-width: 55vw;
+	max-height: 80vh;
 	margin: auto;
 	/*padding: auto;*/
 	flex: 1;
@@ -245,6 +250,25 @@ nav a:hover {
 	cursor: pointer;
 }
 .modal-header {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+}
+.modal-gallery {
+	max-width: 48vw;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 25px;
+	padding: 0 10vw;
+}
+.modal-gallery img {
+	width: 100%;
+	max-width: 80vw;
+	max-height: 80vh;
+	object-fit: cover;
+}
+.modal-footer {
 	display: flex;
 	justify-content: center;
 	padding: 20px;

@@ -25,21 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
                         password: password
                     })
                 });
-                
-                console.log("Statut de réponse:", response.status); // Pour déboguer
 
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error("Réponse d'erreur:", errorText);
                     throw new Error("Email ou mot de passe incorrect");
                 }
                 
                 const data = await response.json();
-                console.log("Données reçues:", data); // Pour déboguer
 
                 if (data.token) {
                     localStorage.setItem("token", data.token);
-                    localStorage.setItem("isAdmin", "true");
+                    // Vérifier si c'est Sophie Bluel (administrateur)
+                    if (email === "sophie.bluel@test.tld") {
+                        localStorage.setItem("isAdmin", "true");
+                    } else {
+                        localStorage.setItem("isAdmin", "false");
+                    }
+                    
                     window.location.href = "./index.html";
                 }
             } catch (error) {
@@ -51,21 +52,34 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export function checkAdminStatus() {
-    const email = document.getElementById("email").value;
-    const isAdmin = localStorage.getItem("isAdmin") === "false";
+    const token = localStorage.getItem("token");
+    // Initialisation explicite - par défaut, personne n'est admin
+    let isAdmin = false;
+
+    // Vérifier si le flag admin est explicitement défini à "true"
+    if (localStorage.getItem("isAdmin") === "true") {
+        isAdmin = true;
+    }
+    
     const headerEdit = document.getElementById("header-edit");
     const filterButtons = document.getElementsByClassName("filterBtn");
     
-    if (email === "sophie.buel@test.tld") {
-        isAdmin = "true";
-        localStorage.setItem("isAdmin", "true");
-        headerEdit.style.display = "flex";
-        Array.from(filterButtons).forEach(btn => btn.style.display = "none");
+    // Si token existe et isAdmin est true
+    if (token && isAdmin) {
+        // Afficher le mode édition
+        if (headerEdit) headerEdit.style.display = "flex";
+        // Cacher les filtres
+        Array.from(filterButtons).forEach(btn => {
+            if (btn) btn.style.display = "none";
+        });
     } else {
-        isAdmin = false;
-        localStorage.setItem("isAdmin", "false");
-        headerEdit.style.display = "none";
-        Array.from(filterButtons).forEach(btn => btn.style.display = "block");
+        // Cacher le mode édition
+        if (headerEdit) headerEdit.style.display = "none";
+        // Afficher les filtres
+        Array.from(filterButtons).forEach(btn => {
+            if (btn) btn.style.display = "block";
+        });
     }
-    checkAdminStatus();
 }
+    //checkAdminStatus();
+    //=== "false"

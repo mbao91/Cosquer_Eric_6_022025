@@ -3,7 +3,9 @@
 Checklist : 
 
 - [ ] verify CSS for login page and index page
-- [ ] Create modals 
+- [x] Create modals
+- [ ] Integer galery works into the modal
+- [ ] Link the possibility to add work into the modal
 
 Code du projet 6 d'intégrateur web.
 

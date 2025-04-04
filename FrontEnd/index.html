@@ -54,7 +54,7 @@
 			</div>
 		</div>
 
-			<div class="gallery"></div><!--galerie de photos des projets-->
+		<div class="gallery"></div><!--galerie de photos des projets-->
 
 		<section class="modal" id="modalGallery">
 			<div class="modal-content">
@@ -64,9 +64,17 @@
 				<div class="modal-header">
 					<h3>Galerie photo</h3>
 				</div>
-				<div class="modal-body">
+				<div class="modal-gallery">
 
 				</div>
+				<div class="modal-footer">
+					<div id="add-img" class="add-img"><!--bouton d'ajout d'image-->
+						<a href="#modalAddingImg" role="button" data-target="#modal" data-toggle="modalAddingImg">Ajouter une image</a>
+					</div>
+					<div id="delete-img" class="delete-img"><!--bouton de suppression d'image-->
+						<i class="fa-regular fa-trash-can"></i>
+						<a href="#" role="button" data-target="#modal" data-toggle="modalDeleteImg">Supprimer une image</a>
+					</div>
 			</div>
 		</section><!--section pour la modale de la galerie-->
 
@@ -96,7 +104,7 @@
 	</nav>
 </footer>
 
-<script type="module" src="./JS/script.js" defer></script>//defer attend le chargement de la page pour executer le script
+<script type="module" src="./JS/script.js" defer></script><!--defer attend le chargement de la page pour executer le script-->
 <script type="module" src="./JS/modale.js"></script>
 <script type="module" src="./JS/login.js"></script>
 </body>
