@@ -24,6 +24,7 @@ async function fetchData() {
 
 const token = localStorage.getItem("token");
 const modalGallery = document.getElementById("modalGallery");
+const overlay = document.getElementById("overlay");
 
 if (token) {
     // Gérer le clic sur modifier pour chaque image
@@ -58,15 +59,35 @@ function addImage() {
         let modalAddImg = document.getElementById("modalAddingImg");
         modalAddImg.style.display = "flex";
     });
-    addImage();
 }
 
 function closeModal() {
+
+    if (modalGallery.style.display === "flex") {
+
+        overlay.addEventListener("click", function (event) {
+            if (event.target === overlay) {
+                modalGallery.style.display = "none";
+                console.log("Modal closed");
+            }
+        });
+        /*modalGallery.style.display = "none";*/
+
+    }
     
+
     modalGallery.style.display = "none";
 }
 
 let modalClose = document.getElementById("modal-close");
-modalClose.addEventListener("click", closeModal);  
+modalClose.addEventListener("click", function () {
+    modalGallery.style.display = "none";
+    console.log("Modal closed");
+})
+/*let clickOnPage = document.querySelector("body");
+clickOnPage.addEventListener("click", closeModal);*/
+
 
 fetchData();
+
+closeModal();
