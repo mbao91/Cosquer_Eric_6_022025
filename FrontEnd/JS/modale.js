@@ -63,20 +63,14 @@ function addImage() {
 
 function closeModal() {
 
-    if (modalGallery.style.display === "flex") {
+    overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+            modalGallery.style.display = "none";
+            console.log("Modal closed");
+        }
+    });   
 
-        overlay.addEventListener("click", function (event) {
-            if (event.target === overlay) {
-                modalGallery.style.display = "none";
-                console.log("Modal closed");
-            }
-        });
-        /*modalGallery.style.display = "none";*/
-
-    }
-    
-
-    modalGallery.style.display = "none";
+    /*modalGallery.style.display = "none";*/
 }
 
 let modalClose = document.getElementById("modal-close");
@@ -89,5 +83,4 @@ clickOnPage.addEventListener("click", closeModal);*/
 
 
 fetchData();
-
 closeModal();
