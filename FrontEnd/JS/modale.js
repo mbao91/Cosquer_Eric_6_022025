@@ -24,6 +24,7 @@ async function fetchData() {
 
 const token = localStorage.getItem("token");
 const modalGallery = document.getElementById("modalGallery");
+const modalAddImg = document.getElementById("modalAddingImg");
 const overlay = document.getElementById("overlay");
 
 if (token) {
@@ -41,9 +42,17 @@ function galery(works) {
     const gallery = document.querySelector(".modal-gallery");
     gallery.innerHTML = ""; // Nettoyer la galerie
     works.forEach(work => {
+        const figure = document.createElement("figure");
         const img = document.createElement("img");
+        const i = document.createElement("i");
+        i.classList.add("fa-regular", "fa-trash-can");
+        const div = document.createElement("div");
+        div.classList.add("modal-img");
 
-        gallery.appendChild(img);
+        gallery.appendChild(figure);
+        figure.appendChild(div);
+        div.appendChild(img);
+        div.appendChild(i);
         img.src = work.imageUrl;
         img.alt = work.title;
         /*gallery.appendChild("<i class="fa-regular fa-trash-can"></i>");*/
@@ -58,6 +67,33 @@ function addImage() {
         modalGallery.style.display = "none";
         let modalAddImg = document.getElementById("modalAddingImg");
         modalAddImg.style.display = "flex";
+    });
+}
+
+function validateBtn() {
+    const validateBtn = document.getElementById("validate");
+    validateBtn.classList.add("filter-btn");
+    validateBtn.textContent = "Valider";
+    validateBtn.addEventListener("click", () => {
+        window.location.href = "./index.html";
+    });    
+}
+
+function returnBtn() {
+    const returnBtn = document.getElementById("modal-return");
+    returnBtn.addEventListener("click", () => {
+        modalGallery.style.display = "flex";
+        let modalReturnImg = document.getElementById("modalAddingImg");
+        modalReturnImg.style.display = "none";
+    });
+}
+
+function delImage() {
+    const deleteBtn = document.querySelector(".fa-trash-can");
+    deleteBtn.addEventListener("click", () => {
+        modalGallery.style.display = "none";
+        let modalDeleteImg = document.getElementById("modalDeletingImg");
+        modalDeleteImg.style.display = "flex";
     });
 }
 
@@ -78,9 +114,17 @@ modalClose.addEventListener("click", function () {
     modalGallery.style.display = "none";
     console.log("Modal closed");
 })
-/*let clickOnPage = document.querySelector("body");
-clickOnPage.addEventListener("click", closeModal);*/
 
+let modalClose2 = document.getElementById("modal-close2");
+modalClose2.addEventListener("click", function () {
+    modalAddImg.style.display = "none";
+    console.log("Modal closed");
+    modalGallery.style.display = "none";
+    console.log("Modal shown");
+})
 
 fetchData();
 closeModal();
+addImage();
+returnBtn();
+validateBtn();

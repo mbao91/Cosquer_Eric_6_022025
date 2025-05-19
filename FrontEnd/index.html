@@ -4,8 +4,6 @@
 	<meta charset="UTF-8">
 	<title>Sophie Bluel - Architecte d'intérieur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/6aaa0cf9a5.js" crossorigin="anonymous"></script>
 	<meta name="description" content="">
@@ -65,21 +63,52 @@
 				<div class="modal-header">
 					<h3>Galerie photo</h3>
 				</div>
-				<div class="modal-gallery">
+				<div class="modal-gallery"><!--section pour la galerie d'images-->
 
 				</div>
 				<div class="modal-footer">
 					<div id="add-img" class="add-img"><!--bouton d'ajout d'image-->
-						<a href="#modalAddingImg" role="button" data-target="#modal" data-toggle="modalAddingImg">Ajouter une image</a>
+						<a href="#modalAddingImg" role="button" data-target="#modal" data-toggle="modalAddingImg"></a>
 					</div>
-					<div id="delete-img" class="delete-img"><!--bouton de suppression d'image-->
-						<i class="fa-regular fa-trash-can"></i>
-						<a href="#" role="button" data-target="#modal" data-toggle="modalDeleteImg">Supprimer une image</a>
-					</div>
+				</div>
 			</div>
 		</section><!--section pour la modale de la galerie-->
 
-		<section id="modalAddingImg"></section><!--section pour la modale d'ajout d'image-->
+		<section class="modal" id="modalAddingImg">
+			<div id="overlay" class="overlay modal-trigger"></div>
+			<div class="modal-content">
+				<div id="modal-close2" class="modal-close">
+					<i class="fa-solid fa-xmark"></i>
+				</div>
+				<div id="modal-return" class="modal-return">
+					<i class="fa-solid fa-arrow-left"></i>
+					<a href="#modalGallery" role="button" data-target="#modal" data-toggle="modalGallery"></a>
+				</div>
+				<div class="modal-header">
+					<h3>Ajout photo</h3>
+				</div>
+				<div class="modal-adding">
+					<div class="addImg">
+						<i class="fa-regular fa-image fa-xl"></i>
+						<button class="filter-btn">+ Ajouter photo</button>
+					</div>
+					<form name="tilte" method="post">
+						<label for="title">Titre</label>
+						<input type="text" name="title" id="title"/>
+					</form>
+					<form name="category" method="post">
+						<label for="category">Catégorie</label>
+						<input type="text" name="category" id="category"/>
+					</form>
+					<div class="validate" id="validate">
+						<form  method="post" id="loginForm">
+                			<input type="submit" value="Valider" id="vadsub">
+            			</form>
+					</div>
+				</div>
+				<div class="modal-footer"><div>
+			</div>
+		</section>
 	</section>
 	<section id="contact"><!--section pour contacter l'architecte d'intérieur-->
 		<h2>Contact</h2>
@@ -108,5 +137,7 @@
 <script type="module" src="./JS/script.js" defer></script><!--defer attend le chargement de la page pour executer le script-->
 <script type="module" src="./JS/modale.js"></script>
 <script type="module" src="./JS/login.js"></script>
+<script type="module" src="./JS/addimage.js"></script>
+
 </body>
 </html>

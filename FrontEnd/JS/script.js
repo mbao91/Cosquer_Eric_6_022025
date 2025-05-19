@@ -46,8 +46,6 @@ async function fetchData() {
     }  
 }
 
-
-
     function checkLoginStatus() {
         const token = localStorage.getItem("token");
         const isAdmin = localStorage.getItem("isAdmin") === "true";
@@ -85,28 +83,6 @@ async function fetchData() {
     window.location.href = "./index.html";
     }
 
-    function galery(works) {
-        const gallery = document.querySelector(".gallery");
-        gallery.innerHTML = ""; // Nettoyer la galerie
-    
-        works.forEach(work => {
-            const figure = document.createElement("figure");
-            const img = document.createElement("img");
-            const figcaption = document.createElement("figcaption");
-    
-            // Ajouter l'attribut data-category pour le filtrage
-            figure.dataset.category = work.category.name;
-    
-            img.src = work.imageUrl;
-            img.alt = work.title;
-            figcaption.textContent = work.title;
-            
-            gallery.appendChild(figure);
-            figure.appendChild(img);
-            figure.appendChild(figcaption);
-        });
-    }
-    
     function categories(categoryData) {
         const portfolioSection = document.querySelector("#portfolio");
         const portfolioTitle = portfolioSection.querySelector("h2");
@@ -142,7 +118,7 @@ async function fetchData() {
         const isAdmin = localStorage.getItem("isAdmin") === "true";
         filterContainer.style.display = isAdmin ? "none" : "flex";
     }
-    
+
     function filterWorks(category) {
         const works = document.querySelectorAll(".gallery figure");
         const buttons = document.querySelectorAll(".filter-btn");
@@ -163,6 +139,30 @@ async function fetchData() {
             } else {
                 work.style.display = work.dataset.category === category ? "block" : "none";
             }
+        });
+    }
+
+    function galery(works) {
+        const gallery = document.querySelector(".gallery");
+        gallery.innerHTML = ""; // Nettoyer la galerie
+    
+        works.forEach(work => {
+            const figure = document.createElement("figure");
+            const img = document.createElement("img");
+            const figcaption = document.createElement("figcaption");
+            
+    
+            // Ajouter l'attribut data-category pour le filtrage
+            figure.dataset.category = work.category.name;
+    
+            img.src = work.imageUrl;
+            img.alt = work.title;
+            figcaption.textContent = work.title;
+            
+            gallery.appendChild(figure);
+            figure.appendChild(img);
+            figure.appendChild(figcaption);
+            
         });
     }
     
