@@ -81,5 +81,3 @@ export function checkAdminStatus() {
         });
     }
 }
-    //checkAdminStatus();
-    //=== "false"
