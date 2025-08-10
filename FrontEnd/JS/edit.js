@@ -16,7 +16,6 @@ async function fetchData() {
         
         const works = await worksResponse.json();
         galery(works);
-        //gallery(works);
 
         const categoriesResponse = await fetch("http://localhost:5678/api/categories", {
             method: "GET",
@@ -190,26 +189,6 @@ const modalGallery = document.getElementById("modalGallery");
         });
     }
 
-    function gallery(works) {
-    const gallery = document.querySelector(".modal-gallery");
-    gallery.innerHTML = ""; // Nettoyer la galerie
-    works.forEach(work => {
-        const figure = document.createElement("figure");
-        const img = document.createElement("img");
-        const i = document.createElement("i");
-        i.classList.add("fa-regular", "fa-trash-can");
-        const div = document.createElement("div");
-        div.classList.add("modal-img");
-
-        gallery.appendChild(figure);
-        figure.appendChild(div);
-        div.appendChild(img);
-        div.appendChild(i);
-        img.src = work.imageUrl;
-        img.alt = work.title;
-        /*gallery.appendChild("<i class="fa-regular fa-trash-can"></i>");*/
-    });
-}
 
     function validateBtn() {
     const validateBtn = document.getElementById("validate");
