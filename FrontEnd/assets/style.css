@@ -174,10 +174,10 @@ nav a:hover {
 }
 .project-title {
 	margin-top: 8em;
-	/*display: flex;
+	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: baseline;*/
+	align-items: baseline;
 }
 .modify {
 	margin-left: 10px;
@@ -468,6 +468,7 @@ footer nav ul {
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	display: none;
 }
 
 .image-preview img {

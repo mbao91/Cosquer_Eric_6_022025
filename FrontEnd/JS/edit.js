@@ -1,4 +1,5 @@
 import { checkAdminStatus } from "./login.js";
+import { handleLogout } from "./script.js";
 
 async function fetchData() {
     checkAdminStatus();
@@ -100,11 +101,7 @@ const modalGallery = document.getElementById("modalGallery");
             }
         }
     }
-    function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("isAdmin");
-    window.location.href = "./index.html";
-    }
+    
 
     function categories(categoryData) {
         const portfolioSection = document.querySelector("#portfolio");
@@ -216,8 +213,6 @@ const modalGallery = document.getElementById("modalGallery");
             console.log("Modal closed");
         }
     });   
-
-    /*modalGallery.style.display = "none";*/
 }
 
 document.addEventListener('DOMContentLoaded', function() {

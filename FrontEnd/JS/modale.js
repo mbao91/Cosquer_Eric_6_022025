@@ -93,7 +93,7 @@ async function deleteWork(workId) {
         if (response.ok) {
             worksData = worksData.filter(work => work.id !== workId);
             displayModalGallery(worksData);
-            //location.reload();
+            location.reload();
             fetchData(); // Recharger les données pour mettre à jour la galerie
         }
     } catch (error) {
